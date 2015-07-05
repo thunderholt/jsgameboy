@@ -2588,8 +2588,13 @@ function GameBoy() {
 
 		this.canvas = document.getElementById("gameboy-canvas");
 		this.canvasContext = this.canvas.getContext("2d");
+
 		this.canvasContext.fillStyle = "#EFFFDE";
-		this.canvasContext.fillRect(0, 0, this.canvas.width, this.canvas.height)
+		this.canvasContext.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+		this.canvasContext.fillStyle = "#183442";
+		this.canvasContext.font = "15px Courier";
+		this.canvasContext.fillText("Choose a ROM from the top right menu...", 6, 14);
 
 		this.memory.init();
 		this.cpu.init();
@@ -2655,43 +2660,6 @@ function GameBoy() {
 
 		request.open("GET", "roms/" + romName, true);
 
-		//request.open("GET", "roms/01-special.gb", true); // Passed
-		//request.open("GET", "roms/02-interrupts.gb", true); // Passed
-		//request.open("GET", "roms/03-op sp,hl.gb", true); // Passed
-		//request.open("GET", "roms/04-op r,imm.gb", true); // Passed
-		//request.open("GET", "roms/05-op rp.gb", true); // Passed
-		//request.open("GET", "roms/06-ld r,r.gb", true); // Passed
-		//request.open("GET", "roms/07-jr,jp,call,ret,rst.gb", true); // Passed
-		//request.open("GET", "roms/08-misc instrs.gb", true); // Passed
-		//request.open("GET", "roms/09-op r,r.gb", true); // Passed
-		//request.open("GET", "roms/10-bit ops.gb", true); // Passed
-		//request.open("GET", "roms/11-op a,(hl).gb", true); // Passed
-		//request.open("GET", "roms/opus5.gb", true);
-		//request.open("GET", "roms/testgame2.gb", true);
-		//request.open("GET", "roms/cpu_instrs.gb", true);
-
-		
-		//request.open("GET", "roms/hello.gb", true);
-		//request.open("GET", "roms/ttt.gb", true);
-		//request.open("GET", "roms/tetris.gb", true);
-		//request.open("GET", "roms/zelda.gb", true);
-		//request.open("GET", "roms/mario.gb", true);
-		//request.open("GET", "roms/rcproam.gb", true);
-		//request.open("GET", "roms/drmario.gb", true);
-		//request.open("GET", "roms/boxxle2.gb", true);
-		//request.open("GET", "roms/dropzone.gb", true);
-		//request.open("GET", "roms/castelian.gb", true);
-		//request.open("GET", "roms/serpent.gb", true);
-		//request.open("GET", "roms/centipede.gb", true);
-		//request.open("GET", "roms/space_invaders.gb", true);
-		//request.open("GET", "roms/hangman.gb", true);
-		//request.open("GET", "roms/kirbys.gb", true);
-		
-
-		//request.open("GET", "roms/unit-tests-cpu.gb", true);
-		//request.open("GET", "roms/unit-tests-timer.gb", true);
-		//request.open("GET", "roms/unit-tests-banking.gb", true);
-		//request.open("GET", "roms/mem-peeking.gb", true);
 		request.responseType = "arraybuffer";
 
 		request.onload = function (e) {
