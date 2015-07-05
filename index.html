@@ -1,0 +1,264 @@
+<html>
+<head>
+	<style>
+
+		body {
+			margin: 0px;
+			font-family: verdana;
+			background-color: #222222;
+		}
+
+		.main {
+			max-width: 1024px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.emulator {
+			height: 545px;
+			position: relative;
+			background-color: white;
+		}
+
+		.emulator-nav {
+			background-color: #555555;
+			padding: 5px;
+			height: 20px;
+		}
+
+		.emulator-nav h1 {
+			color: #1FD5FF;
+			font-size: 12px;
+			float: left;
+			margin: 0px;
+			margin-top: 3px;
+		}
+
+		.emulator-nav ul {
+			float: right;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.emulator-nav ul li {
+			display: inline-block;
+			list-style: none;
+			color: #fff;
+			font-size: 10px;
+		}
+
+		.emulator-screen {
+			margin-top: 10px;
+			width: 480px;
+			height: 432px;
+			margin-left: auto;
+			margin-right: auto;
+			border: solid #555555 10px;
+			border-radius: 8px;
+		}
+
+		.emulator-buttons-dpad {
+			position: absolute;
+			width: 150px;
+			left: 50px;
+			top: 185px;
+			height: 150px;
+		}
+
+		.emulator-buttons-dpad .up {
+			top: 0px;
+			left: 50px;
+		}
+
+		.emulator-buttons-dpad .down {
+			top: 100px;
+			left: 50px;
+		}
+
+		.emulator-buttons-dpad .left {
+			top: 50px;
+			left: 0px;
+		}
+
+		.emulator-buttons-dpad .right {
+			top: 50px;
+			right: 0px;
+		}
+
+		.emulator-buttons-dpad button {
+			border-radius: 10px;
+			border-top: solid #bbbbbb 5px;
+			border-left: solid #bbbbbb 5px;
+			border-right: solid #eeeeee 5px;
+			border-bottom: solid #eeeeee 5px;
+			background-color: #aaa;
+			padding: 10px;
+			padding-top: 4px;
+			width: 50px;
+			height: 50px;
+			font-weight: bold;
+			font-size: 20px;
+			top: 50px;
+			color: #fff;
+			position: absolute;
+		}
+
+		.emulator-buttons-ab {
+			position: absolute;
+			width: 180px;
+			height: 80px;
+			right: 30px;
+			top: 220px;
+		}
+
+		.emulator-buttons-ab button { 
+			background-color: #f00;
+			border-radius: 36px;
+			border-top: solid #bbbbbb 5px;
+			border-left: solid #bbbbbb 5px;
+			border-right: solid #eeeeee 5px;
+			border-bottom: solid #eeeeee 5px;
+			width: 72px;
+			height: 72px;
+			color: #fff;
+			font-size: 20px;
+			font-weight: bold;
+			position: absolute;
+		}
+
+		.emulator-buttons-ab .a {
+
+		}
+
+		.emulator-buttons-ab .b {
+			right: 0px;
+		}
+
+		.emulator-buttons-startselect {
+			position: relative;
+			top: 10px;
+			width: 250px;
+			height: 30px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.emulator-buttons-startselect button {
+			border-radius: 5px;
+			border-top: solid #bbbbbb 5px;
+			border-left: solid #bbbbbb 5px;
+			border-right: solid #eeeeee 5px;
+			border-bottom: solid #eeeeee 5px;
+			background-color: #555555;
+			padding: 5px;
+			color: #fff;
+			width: 100px;
+			position: absolute;
+		}
+
+		.emulator-buttons-startselect .start {
+			top: 0px;
+			left: 0px;
+		}
+
+		.emulator-buttons-startselect .select {
+			top: 0px;
+			right: 0px;
+		}
+
+		.debug-view {
+			border: solid #0014FF 1px;
+			background-color: #000C99;
+			color: #fff;
+			font-family: courier;
+			padding: 10px;
+			margin-top: 10px;
+		}
+
+		.debug-view h2 {
+			margin: 0px;
+			margin-bottom: 5px;
+		}
+
+		.debug-view p {
+			margin: 0px;
+			margin-bottom: 5px;
+		}
+
+		.debug-view span {
+			color: #FF8F00;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="main">
+
+		<div class="emulator">
+
+			<div class="emulator-nav">
+				<h1>Andy's JavaScript GameBoy Emulator</h1>
+				<ul>
+					<li>
+						Rom: 
+						<select id="rom">
+							<option value="mario.gb">Super Mario Land</option>
+							<option value="zelda.gb">Zelda: Link's Awakening</option>
+							<option value="tetris.gb">Tetris</option>
+							<option value="kirbys.gb">Kerby's Dream Land</option>
+							<!--<option value="metroid2.gb">Metroid 2</option>-->
+						</select>
+						<button type="button" onclick="gameBoy.start(document.getElementById('rom').value)">Load</button>
+					</li>
+				</ul>
+			</div>
+
+			<div class="emulator-screen">
+				<canvas id="gameboy-canvas" style="image-rendering: pixelated;" width="480" height="432"></canvas>
+			</div>
+
+			<div class="emulator-buttons-dpad">
+				<button id="btn-up" class="up">&uarr;</button>
+				<button id="btn-down" class="down">&darr;</button>
+				<button id="btn-left" class="left">&larr;</button>
+				<button id="btn-right" class="right">&rarr;</button>
+			</div>
+
+			<div class="emulator-buttons-ab">
+				<button id="btn-a" class="a">A</button>
+				<button id="btn-b" class="b">B</button>
+			</div>
+
+			<div class="emulator-buttons-startselect">
+				<button id="btn-start" class="start">Start</button>
+				<button id="btn-select" class="select">Select</button>
+			</div>
+
+		</div>
+
+		<div class="debug-view">
+			<h2>Debug</h2>
+			<p>Total Clocks Executed: <span id="statsTotalClocksExecuted"></span></p>
+			<p>Average clocks per second: <span id="statsAverageClocksPerSecond"></span></p>
+			<p>Clocks last frame (expected 70224): <span id="statsClocksLastFrame"></span></p>
+			<p>Last Frame Duration: <span id="statsLastFrameDuration"></span></p>
+		</div>
+
+	</div>
+
+	<script src="gameboy.js?v=2"></script>
+	<script src="gameboy-cpu-instructions-8bit-loads.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-16bit-loads.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-8bit-alu.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-16bit-alu.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-misc.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-jumps.js?v=1"></script>
+	<script src="gameboy-cpu-instructions-ext.js?v=1"></script>
+	<script>
+	var gameBoy = new GameBoy();
+	gameBoy.init();
+	//gameBoy.start();
+	</script>
+</body>
+</html>
